@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import BaseLayout from '@/components/Base/BaseButton.vue'
+import BaseLayout from '@/components/Layout/BaseLayout.vue'
+import DynamicBackground from '@/components/Background/DynamicBackground.vue'
 </script>
 
 <template>
-  <BaseLayout>
+  <DynamicBackground>
     <main>
       <RouterView />
     </main>
-  </BaseLayout>
+  </DynamicBackground>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BaseLayout from '@/components/Base/BaseButton.vue'
+import BaseLayout from '@/components/Layout/BaseLayout.vue'
 </script>
 
 <template>
