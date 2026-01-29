@@ -2,8 +2,7 @@
 import { ref, inject, computed } from 'vue';
 import { useClipboard } from '@vueuse/core';
 import { useCodeGenerator } from '@/composables/useCodeGenerator';
-import IconPhCopy from '~icons/ph/copy';
-import IconPhCheck from '~icons/ph/check';
+import { Icon } from '@iconify/vue';
 
 // We need a way to pass the current component state from the parent (Slot content)
 // to this wrapper to generate the code.
@@ -58,8 +57,8 @@ const handleCopy = () => {
           @click="handleCopy"
           class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-primary bg-primary/10 hover:bg-primary/20 rounded-md transition-colors"
         >
-          <IconPhCheck v-if="copied" class="w-4 h-4" />
-          <IconPhCopy v-else class="w-4 h-4" />
+          <Icon icon="ph:check" v-if="copied" class="w-4 h-4" />
+          <Icon icon="ph:copy" v-else class="w-4 h-4" />
           {{ copied ? 'Copied!' : 'Copy Source' }}
         </button>
       </div>

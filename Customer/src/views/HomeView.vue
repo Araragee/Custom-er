@@ -3,6 +3,7 @@ import { useThemeStore } from '@/stores/theme';
 import { storeToRefs } from 'pinia';
 import BaseCard from '@/components/base/BaseCard.vue';
 import { componentsList } from '@/data/components-list';
+import { Icon } from '@iconify/vue';
 
 const themeStore = useThemeStore();
 const { currentTheme, isGlassMode } = storeToRefs(themeStore);
@@ -52,8 +53,7 @@ const themes = ['Ocean', 'Sunset', 'Dawn', 'Midnight', 'Simple'];
         >
           <div class="flex items-center gap-4 mb-3">
              <div class="p-2 bg-primary/10 rounded-lg text-primary">
-               <!-- Icon placeholder until we install unplugin-icons -->
-               <span>📦</span>
+               <Icon :icon="component.icon" class="w-6 h-6" />
              </div>
              <h3 class="text-xl font-semibold group-hover:text-primary transition-colors">{{ component.name }}</h3>
           </div>

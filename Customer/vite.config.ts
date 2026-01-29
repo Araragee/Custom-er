@@ -3,14 +3,10 @@ import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
-import Icons from 'unplugin-icons/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    Icons({
-      compiler: 'vue3',
-    }),
     vue(),
     tailwindcss(),
     vueDevTools(),
