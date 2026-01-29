@@ -14,6 +14,16 @@ const router = createRouter({
       name: 'ButtonDemo',
       component: () => import('../views/demo/ButtonDemo.vue'),
     },
+    {
+      path: '/demo/input',
+      name: 'InputDemo',
+      component: () => import('../views/demo/InputDemo.vue'),
+    },
+    {
+      path: '/demo/toast',
+      name: 'ToastDemo',
+      component: () => import('../views/demo/ToastDemo.vue'),
+    },
   ],
 })
 
