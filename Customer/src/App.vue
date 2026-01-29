@@ -1,12 +1,7 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import BaseLayout from '@/components/Base/BaseButton.vue'
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <BaseLayout>
-    <main>
-      <RouterView />
-    </main>
-  </BaseLayout>
+  <RouterView />
 </template>

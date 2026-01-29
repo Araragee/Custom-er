@@ -1,16 +1,67 @@
 <script setup lang="ts">
-import BaseLayout from '@/components/Base/BaseButton.vue'
+import { useThemeStore } from '@/stores/theme';
+import { storeToRefs } from 'pinia';
+import BaseCard from '@/components/base/BaseCard.vue';
+import { componentsList } from '@/data/components-list';
+
+const themeStore = useThemeStore();
+const { currentTheme, isGlassMode } = storeToRefs(themeStore);
+const themes = ['Ocean', 'Sunset', 'Dawn', 'Midnight', 'Simple'];
 </script>
 
 <template>
-    <div class="grid grid-cols-5 items-center justify-center h-screen w-full">
-      <div class="col-span-5  bg-transparent backdrop-blur-xl h-full w-full items-center flex justify-center">
-        <div class="w-full h-96 items-center justify-center flex flex-col gap-3">
-          <p class="text-9xl text-zinc-800 dark:text-zinc-500">Custom-er</p>
-          <button class="uppercase rounded-2xl w-auto h-auto font-bold text-2xl px-5 py-3.5 dark:bg-zinc-900 backdrop-blur-3xl dark:bg-opacity-30 bg-zinc-200 bg-opacity-30 text-zinc-800 dark:text-zinc-500 transition-all duration-300 ease-in-out">
-            Explore
+  <div class="min-h-screen bg-bg transition-colors duration-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <!-- Top Bar: Theme Switcher -->
+      <div class="flex flex-col sm:flex-row justify-between items-center mb-12 gap-4">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
+          Vue Design System
+        </h1>
+
+        <div class="flex items-center gap-4">
+          <div class="flex bg-white dark:bg-gray-800 p-1 rounded-full shadow-sm">
+            <button
+              v-for="theme in themes"
+              :key="theme"
+              @click="themeStore.setTheme(theme)"
+              class="px-3 py-1.5 rounded-full text-sm font-medium transition-colors"
+              :class="currentTheme === theme ? 'bg-primary text-white shadow-sm' : 'text-gray-600 dark:text-gray-300 hover:text-primary'"
+            >
+              {{ theme }}
+            </button>
+          </div>
+
+          <button
+            @click="themeStore.toggleGlassMode(!isGlassMode)"
+            class="p-2 rounded-full bg-white dark:bg-gray-800 shadow-sm text-gray-600 dark:text-gray-300 hover:text-primary transition-colors"
+            title="Toggle Global Glass Mode"
+          >
+            <span v-if="isGlassMode">✨</span>
+            <span v-else>🌑</span>
           </button>
         </div>
       </div>
+
+      <!-- Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <BaseCard
+            v-for="component in componentsList"
+            :key="component.name"
+            class="hover:shadow-lg transition-shadow duration-300 cursor-pointer group"
+            @click="$router.push(component.path)"
+        >
+          <div class="flex items-center gap-4 mb-3">
+             <div class="p-2 bg-primary/10 rounded-lg text-primary">
+               <!-- Icon placeholder until we install unplugin-icons -->
+               <span>📦</span>
+             </div>
+             <h3 class="text-xl font-semibold group-hover:text-primary transition-colors">{{ component.name }}</h3>
+          </div>
+          <p class="text-gray-500 dark:text-gray-400 leading-relaxed">
+            {{ component.description }}
+          </p>
+        </BaseCard>
+      </div>
     </div>
+  </div>
 </template>
