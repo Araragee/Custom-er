@@ -24,6 +24,36 @@ const router = createRouter({
       name: 'ToastDemo',
       component: () => import('../views/demo/ToastDemo.vue'),
     },
+    {
+      path: '/demo/navigation',
+      name: 'NavigationDemo',
+      component: () => import('../views/demo/NavigationDemo.vue'),
+    },
+    {
+      path: '/demo/data-display',
+      name: 'DataDisplayDemo',
+      component: () => import('../views/demo/DataDisplayDemo.vue'),
+    },
+    {
+      path: '/demo/form-advanced',
+      name: 'FormAdvancedDemo',
+      component: () => import('../views/demo/FormAdvancedDemo.vue'),
+    },
+    {
+      path: '/demo/overlay',
+      name: 'OverlayDemo',
+      component: () => import('../views/demo/OverlayDemo.vue'),
+    },
+    {
+      path: '/demo/table',
+      name: 'TableDemo',
+      component: () => import('../views/demo/TableDemo.vue'),
+    },
+    {
+      path: '/dashboard',
+      name: 'DashboardExample',
+      component: () => import('../views/DashboardExample.vue'),
+    },
   ],
 })
 

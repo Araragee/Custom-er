@@ -5,7 +5,15 @@ export const useThemeStore = defineStore('theme', () => {
   const currentTheme = ref('Ocean');
   const isGlassMode = ref(false);
 
-  const palettes: Record<string, { primary: string; secondary: string; bg: string; surface: string }> = {
+  interface Palette {
+    primary: string;
+    secondary: string;
+    bg: string;
+    surface: string;
+    isDark?: boolean;
+  }
+
+  const palettes: Record<string, Palette> = {
     Ocean: {
       primary: '0 153 153',
       secondary: '22 78 99',
@@ -28,7 +36,8 @@ export const useThemeStore = defineStore('theme', () => {
       primary: '129 140 248',
       secondary: '49 46 129',
       bg: '15 23 42',
-      surface: '30 41 59'
+      surface: '30 41 59',
+      isDark: true
     },
     Simple: {
       primary: '0 0 0',
@@ -49,6 +58,13 @@ export const useThemeStore = defineStore('theme', () => {
     root.style.setProperty('--color-secondary', palette.secondary);
     root.style.setProperty('--color-bg', palette.bg);
     root.style.setProperty('--color-surface', palette.surface);
+
+    // Toggle Dark Mode
+    if (palette.isDark) {
+        root.classList.add('dark');
+    } else {
+        root.classList.remove('dark');
+    }
   };
 
   const toggleGlassMode = (value: boolean) => {
