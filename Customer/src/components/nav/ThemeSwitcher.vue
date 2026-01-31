@@ -3,7 +3,7 @@ import { useThemeStore } from '@/stores/theme';
 import { storeToRefs } from 'pinia';
 
 const themeStore = useThemeStore();
-const { currentTheme, isGlassMode } = storeToRefs(themeStore);
+const { currentTheme, isGlassMode, isDark } = storeToRefs(themeStore);
 const themes = ['Ocean', 'Sunset', 'Dawn', 'Midnight', 'Simple'];
 </script>
 
@@ -20,6 +20,15 @@ const themes = ['Ocean', 'Sunset', 'Dawn', 'Midnight', 'Simple'];
         {{ theme }}
       </button>
     </div>
+
+    <button
+      @click="themeStore.toggleDarkMode()"
+      class="p-2 rounded-full bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors duration-200"
+      title="Toggle Dark Mode"
+    >
+      <span v-if="isDark">🌙</span>
+      <span v-else>☀️</span>
+    </button>
 
     <button
       @click="themeStore.toggleGlassMode(!isGlassMode)"

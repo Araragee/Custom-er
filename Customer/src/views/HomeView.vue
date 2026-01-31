@@ -4,10 +4,9 @@ import { storeToRefs } from 'pinia';
 import BaseCard from '@/components/base/BaseCard.vue';
 import { componentsList } from '@/data/components-list';
 import { Icon } from '@iconify/vue';
+import ThemeSwitcher from '@/components/nav/ThemeSwitcher.vue';
 
 const themeStore = useThemeStore();
-const { currentTheme, isGlassMode } = storeToRefs(themeStore);
-const themes = ['Ocean', 'Sunset', 'Dawn', 'Midnight', 'Simple'];
 </script>
 
 <template>
@@ -19,28 +18,8 @@ const themes = ['Ocean', 'Sunset', 'Dawn', 'Midnight', 'Simple'];
           Vue Design System
         </h1>
 
-        <div class="flex items-center gap-4">
-          <div class="flex bg-white dark:bg-gray-800 p-1 rounded-full shadow-sm">
-            <button
-              v-for="theme in themes"
-              :key="theme"
-              @click="themeStore.setTheme(theme)"
-              class="px-3 py-1.5 rounded-full text-sm font-medium transition-colors"
-              :class="currentTheme === theme ? 'bg-primary text-white shadow-sm' : 'text-gray-600 dark:text-gray-300 hover:text-primary'"
-            >
-              {{ theme }}
-            </button>
-          </div>
-
-          <button
-            @click="themeStore.toggleGlassMode(!isGlassMode)"
-            class="p-2 rounded-full bg-white dark:bg-gray-800 shadow-sm text-gray-600 dark:text-gray-300 hover:text-primary transition-colors"
-            title="Toggle Global Glass Mode"
-          >
-            <span v-if="isGlassMode">✨</span>
-            <span v-else>🌑</span>
-          </button>
-        </div>
+        <!-- Use the reusable component -->
+        <ThemeSwitcher />
       </div>
 
       <!-- Grid -->

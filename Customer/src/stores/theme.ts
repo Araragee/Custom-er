@@ -4,6 +4,7 @@ import { ref } from 'vue';
 export const useThemeStore = defineStore('theme', () => {
   const currentTheme = ref('Ocean');
   const isGlassMode = ref(false);
+  const isDark = ref(false);
 
   interface Palette {
     primary: string;
@@ -47,23 +48,38 @@ export const useThemeStore = defineStore('theme', () => {
     }
   };
 
+  const updateRootVariables = (palette: Palette) => {
+    const root = document.documentElement;
+    root.style.setProperty('--color-primary', palette.primary);
+    root.style.setProperty('--color-secondary', palette.secondary);
+    root.style.setProperty('--color-bg', palette.bg);
+    root.style.setProperty('--color-surface', palette.surface);
+  };
+
+  const updateDarkModeClass = () => {
+      const root = document.documentElement;
+      if (isDark.value) {
+          root.classList.add('dark');
+      } else {
+          root.classList.remove('dark');
+      }
+  };
+
   const setTheme = (name: string) => {
     if (!palettes[name]) return;
     currentTheme.value = name;
 
     const palette = palettes[name];
-    const root = document.documentElement;
+    updateRootVariables(palette);
 
-    root.style.setProperty('--color-primary', palette.primary);
-    root.style.setProperty('--color-secondary', palette.secondary);
-    root.style.setProperty('--color-bg', palette.bg);
-    root.style.setProperty('--color-surface', palette.surface);
-
-    // Toggle Dark Mode
-    if (palette.isDark) {
-        root.classList.add('dark');
-    } else {
-        root.classList.remove('dark');
+    // If the theme suggests dark mode, enable it, but don't force disable if user manually toggled?
+    // For simplicity, let the theme preset dictate the default mode, but user can override.
+    // Actually, "Midnight" IS a dark theme. Switching to it should probably enable dark mode.
+    // Switching to "Ocean" should probably disable it (or reset to preference).
+    // Let's stick to: Theme sets the mode preference initially.
+    if (palette.isDark !== undefined) {
+        isDark.value = palette.isDark;
+        updateDarkModeClass();
     }
   };
 
@@ -71,10 +87,34 @@ export const useThemeStore = defineStore('theme', () => {
     isGlassMode.value = value;
   };
 
+  const toggleDarkMode = (value?: boolean) => {
+      isDark.value = value ?? !isDark.value;
+      updateDarkModeClass();
+  };
+
+  const setCustomColor = (type: 'primary' | 'secondary', color: string) => {
+      // Color comes in hex or rgb?
+      // Tailwind config expects 'rgb(var(--color-primary) / ...)'
+      // If input is hex, we need to convert to 'R G B' string.
+
+      const hexToRgb = (hex: string) => {
+          const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+          return result ? `${parseInt(result[1], 16)} ${parseInt(result[2], 16)} ${parseInt(result[3], 16)}` : null;
+      };
+
+      const rgb = hexToRgb(color);
+      if (rgb) {
+          document.documentElement.style.setProperty(`--color-${type}`, rgb);
+      }
+  };
+
   return {
     currentTheme,
     isGlassMode,
+    isDark,
     setTheme,
-    toggleGlassMode
+    toggleGlassMode,
+    toggleDarkMode,
+    setCustomColor
   };
 });

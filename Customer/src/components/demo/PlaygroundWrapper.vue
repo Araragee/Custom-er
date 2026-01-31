@@ -3,18 +3,7 @@ import { ref, inject, computed } from 'vue';
 import { useClipboard } from '@vueuse/core';
 import { useCodeGenerator } from '@/composables/useCodeGenerator';
 import { Icon } from '@iconify/vue';
-
-// We need a way to pass the current component state from the parent (Slot content)
-// to this wrapper to generate the code.
-// Ideally, the parent component (ButtonDemo) would pass the 'code' string
-// or the props object to PlaygroundWrapper.
-// The plan didn't specify props for PlaygroundWrapper for this,
-// but it says "UI: Add a 'Copy Source' button in PlaygroundWrapper.vue using useClipboard."
-// and "Output: Returns a formatted string...".
-
-// To make this work cleanly, I'll add a prop `componentName` and `componentProps` to PlaygroundWrapper.
-// OR, since the slot content is arbitrary, maybe the parent should generate the code and pass it?
-// "Phase 3.2 ... UI: Add a "Copy Source" button in PlaygroundWrapper.vue"
+import { useRouter } from 'vue-router';
 
 interface Props {
   componentName?: string;
@@ -26,6 +15,7 @@ const props = withDefaults(defineProps<Props>(), {
   componentProps: () => ({}),
 });
 
+const router = useRouter();
 const { copy, copied } = useClipboard();
 const { generateCode } = useCodeGenerator();
 
@@ -33,12 +23,27 @@ const handleCopy = () => {
   const code = generateCode(props.componentName, props.componentProps);
   copy(code);
 };
+
+const goHome = () => {
+  router.push('/');
+};
 </script>
 
 <template>
   <div class="flex flex-col lg:flex-row h-[calc(100vh-4rem)] border-t border-gray-200 dark:border-gray-800">
     <!-- Stage (Preview) -->
     <div class="w-full lg:w-2/3 bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-8 relative overflow-hidden" id="stage-area">
+      <!-- Back Button overlay in Stage -->
+      <div class="absolute top-4 left-4 z-50">
+        <button
+          @click="goHome"
+          class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-sm hover:text-primary hover:border-primary transition-all duration-200"
+        >
+          <Icon icon="ph:arrow-left" class="w-4 h-4" />
+          Back to Home
+        </button>
+      </div>
+
       <div class="absolute inset-0 grid grid-cols-[40px_40px] opacity-[0.05] pointer-events-none"
            style="background-image: linear-gradient(to right, #808080 1px, transparent 1px), linear-gradient(to bottom, #808080 1px, transparent 1px); background-size: 40px 40px;">
       </div>
