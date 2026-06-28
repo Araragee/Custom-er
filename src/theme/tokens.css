@@ -1,0 +1,42 @@
+/* ---------------------------------------------------------------------------
+ * custom-er — design token contract
+ * ---------------------------------------------------------------------------
+ * This file is the public theming surface of the library. Consumers import it
+ * once, alongside Tailwind, so that token utilities (bg-primary, text-fg, …)
+ * are generated and the runtime palette variables exist:
+ *
+ *   @import "tailwindcss";
+ *   @import "custom-er/tokens.css";
+ *
+ * Palette channels are stored as space-separated RGB so they compose with
+ * Tailwind's opacity modifiers (e.g. `bg-primary/40`). The useTheme()
+ * composable overrides the --palette-* variables on :root at runtime to swap
+ * palettes without rebuilding any CSS.
+ * ------------------------------------------------------------------------- */
+
+:root {
+  /* Default palette: Ocean */
+  --palette-primary: 0 153 153;
+  --palette-secondary: 22 78 99;
+  --palette-bg: 240 249 255;
+  --palette-surface: 255 255 255;
+  --palette-on-primary: 255 255 255;
+  --palette-fg: 15 23 42;
+  --palette-muted: 100 116 139;
+  --palette-border: 226 232 240;
+}
+
+/* `inline` makes the generated utilities reference --palette-* by name, so a
+ * runtime override of any --palette-* value cascades into every utility. */
+@theme inline {
+  --color-primary: rgb(var(--palette-primary));
+  --color-secondary: rgb(var(--palette-secondary));
+  --color-bg: rgb(var(--palette-bg));
+  --color-surface: rgb(var(--palette-surface));
+  --color-on-primary: rgb(var(--palette-on-primary));
+  --color-fg: rgb(var(--palette-fg));
+  --color-muted: rgb(var(--palette-muted));
+  --color-border: rgb(var(--palette-border));
+
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
