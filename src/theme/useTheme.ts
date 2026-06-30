@@ -11,6 +11,7 @@ const VAR_MAP: Record<keyof Palette, string> = {
   fg: '--palette-fg',
   muted: '--palette-muted',
   border: '--palette-border',
+  danger: '--palette-danger',
 }
 
 // Module-level state: shared across every useTheme() caller, no Pinia required.

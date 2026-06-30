@@ -1,5 +1,5 @@
 export type ButtonVariant = 'solid' | 'soft' | 'outline' | 'ghost' | 'link'
-export type ButtonColor = 'primary' | 'secondary' | 'neutral'
+export type ButtonColor = 'primary' | 'secondary' | 'neutral' | 'danger'
 export type ButtonSize = 'sm' | 'md' | 'lg'
 
 export interface ButtonProps {

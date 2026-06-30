@@ -45,6 +45,13 @@ const variantClasses: Record<ButtonColor, Record<ButtonVariant, string>> = {
     ghost: 'text-fg hover:bg-fg/5',
     link: 'text-fg underline-offset-4 hover:underline',
   },
+  danger: {
+    solid: 'bg-danger text-on-primary shadow-sm hover:bg-danger/90 hover:shadow-md',
+    soft: 'bg-danger/10 text-danger hover:bg-danger/20',
+    outline: 'border border-danger/40 text-danger hover:bg-danger/10',
+    ghost: 'text-danger hover:bg-danger/10',
+    link: 'text-danger underline-offset-4 hover:underline',
+  },
 }
 
 const isLink = computed(() => props.variant === 'link')

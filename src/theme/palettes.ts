@@ -19,6 +19,8 @@ export interface Palette {
   muted: string
   /** Default border / divider color. */
   border: string
+  /** Destructive / error accent. */
+  danger: string
 }
 
 export const palettes = {
@@ -31,6 +33,7 @@ export const palettes = {
     fg: '15 23 42',
     muted: '100 116 139',
     border: '226 232 240',
+    danger: '220 38 38',
   },
   Sunset: {
     primary: '219 141 49',
@@ -41,6 +44,7 @@ export const palettes = {
     fg: '67 20 7',
     muted: '146 64 14',
     border: '254 215 170',
+    danger: '220 38 38',
   },
   Dawn: {
     primary: '236 72 153',
@@ -51,6 +55,7 @@ export const palettes = {
     fg: '15 23 42',
     muted: '100 116 139',
     border: '226 232 240',
+    danger: '225 29 72',
   },
   Midnight: {
     primary: '129 140 248',
@@ -61,6 +66,7 @@ export const palettes = {
     fg: '226 232 240',
     muted: '148 163 184',
     border: '51 65 85',
+    danger: '248 113 113',
   },
   Simple: {
     primary: '0 0 0',
@@ -71,6 +77,7 @@ export const palettes = {
     fg: '0 0 0',
     muted: '115 115 115',
     border: '229 229 229',
+    danger: '185 28 28',
   },
 } satisfies Record<string, Palette>
 

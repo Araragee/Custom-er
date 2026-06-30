@@ -4,15 +4,19 @@ A custom Vue 3 component library — headless behavior (built on
 [reka-ui](https://reka-ui.com)) with opinionated, themeable designs. Think
 Headless UI, but with batteries-included styling and a runtime palette engine.
 
-> **Status:** early development. The theme engine and the first component
-> (`Button`) are in place; more components and the published npm release are on
-> the roadmap below.
+> **Status:** early development. The theme engine and five components
+> (`Button`, `Input`, `Modal`, `Menu`) are in place; more components and the
+> published npm release are on the roadmap below.
 
 ## Project layout
 
 ```
 src/
-  components/        # library components (Button, …)
+  components/        # library components
+    Button/
+    Input/
+    Modal/           # compound: Modal, ModalTrigger, ModalContent, …
+    Menu/            # compound: Menu, MenuTrigger, MenuContent, MenuItem, …
   theme/             # design tokens, palettes, useTheme() composable
     tokens.css       #   ← the public theming contract (Tailwind v4)
   utils/             # small internal helpers
@@ -46,7 +50,25 @@ const { theme, themes, setTheme, isDark, toggleDark } = useTheme()
 setTheme('Midnight')
 ```
 
-Built-in palettes: `Ocean`, `Sunset`, `Dawn`, `Midnight`, `Simple`.
+Built-in palettes: `Ocean`, `Sunset`, `Dawn`, `Midnight`, `Simple`. Each defines
+`primary`, `secondary`, `bg`, `surface`, `onPrimary`, `fg`, `muted`, `border`,
+and `danger` channels.
+
+## Components
+
+- **`Button`** — `solid`/`soft`/`outline`/`ghost`/`link` variants ×
+  `primary`/`secondary`/`neutral`/`danger` colors, with `pill`, `block`,
+  `loading`, and `as`/`asChild` polymorphism.
+- **`Input`** — labeled text field with `hint`/`error` states and
+  leading/trailing slots.
+- **`Modal`** (`Modal`, `ModalTrigger`, `ModalContent`, `ModalTitle`,
+  `ModalDescription`, `ModalClose`) — a styled compound API over Reka UI's
+  `Dialog`, with sizes and open/close animations.
+- **`Menu`** (`Menu`, `MenuTrigger`, `MenuContent`, `MenuItem`, `MenuLabel`,
+  `MenuSeparator`) — a styled compound API over Reka UI's `DropdownMenu`.
+
+The `Modal`/`Menu` compound APIs mirror Reka UI's own primitive naming, so
+consumers familiar with Radix-style headless libraries should feel at home.
 
 ## Consuming (preview — finalized in Phase 3)
 
@@ -76,8 +98,9 @@ import { Button } from 'custom-er'
   scaffold cruft, fixed broken imports.
 - **Phase 1 — Theme engine** ✅ Tailwind v4 token contract, palette engine,
   `useTheme()`, first `Button`.
-- **Phase 2 — Component architecture** — grow the set (Input, Modal, Dropdown…)
-  on the headless core, with consistent variant/slot conventions.
+- **Phase 2 — Component architecture** ✅ `Input`, `Modal`, `Menu` added on the
+  Reka UI headless core, with consistent variant/slot conventions and a shared
+  `danger` token for destructive actions.
 - **Phase 3 — npm packaging** — finalize the build/exports, validate in a real
   consumer app, publish.
 - **Phase 4 — Docs, tests, DX** — Storybook/VitePress showcase, Vitest tests,
